@@ -65,7 +65,7 @@ Username adds a validator to prevent the use of invalid usernames.
 ### Methods
 
 ```ruby
-# If a username is available for an ActiveRecord class
+# If a username is valid for an ActiveRecord class
 User.username_valid? 'test'
 
 # If a username is available for an ActiveRecord model
