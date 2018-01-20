@@ -1,5 +1,8 @@
 Username.configure do |config|
 
+    # Array of forbidden usernames
+    # config.forbidden = []
+
     # Minimum length for usernames
     # config.minlength = 1
 

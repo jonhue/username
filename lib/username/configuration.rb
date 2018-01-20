@@ -12,6 +12,7 @@ module Username
     class Configuration
 
         attr_accessor :models
+        attr_accessor :forbidden
         attr_accessor :minlength
         attr_accessor :maxlength
         attr_accessor :regex
@@ -19,6 +20,7 @@ module Username
 
         def initialize
             @models = []
+            @forbidden = []
             @minlength = 1
             @maxlength = 20
             @regex = /\A[a-zA-Z0-9_\.]*\z/

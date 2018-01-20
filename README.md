@@ -80,10 +80,11 @@ You can configure Username by passing a block to `configure`. This can be done i
 
 ```ruby
 Username.configure do |config|
-    config.minlength = 1
+    config.forbidden = []
 end
 ```
 
+* `forbidden` Array of forbidden usernames. Takes an array of strings. Defaults to `[]`.
 * `minlength` Minimum length for usernames. Takes an integer. Defaults to `1`.
 * `maxlength` Maximum length for usernames. Takes an integer. Defaults to `20`.
 * `regex` Strings not matching this regular expression are invalid as usernames. Takes a regular expression. Defaults to `/\A[a-zA-Z0-9_\.]*\z/`.
