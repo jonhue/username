@@ -11,6 +11,7 @@ Usernames for ActiveRecord model.
 * [Installation](#installation)
 * [Usage](#usage)
     * [Methods](#methods)
+    * [Devise](#devise)
 * [Configuration](#configuration)
 * [To Do](#to-do)
 * [Contributing](#contributing)
@@ -70,6 +71,42 @@ User.username_valid? 'test'
 
 # If a username is available for an ActiveRecord model
 User.first.username_available? 'test'
+```
+
+### Devise
+
+If you are using Devise and you want to allow your users to sign in using either their username or email address, here is how you'd do that:
+
+1) Pass the `devise` option to the `has_username` method:
+
+```ruby
+class User < ApplicationRecord
+    has_username devise: true
+end
+```
+
+2) Configure permitted Devise parameters in your `ApplicationController`:
+
+```ruby
+class ApplicationController < ActionController::Base
+
+    before_action :configure_permitted_parameters, if: :devise_controller?
+
+    def configure_permitted_parameters
+        attributes = [:username, :email, :password, :remember_me]
+        devise_parameter_sanitizer.permit :sign_up, keys: attributes
+        devise_parameter_sanitizer.permit :account_update, keys: attributes
+    end
+
+end
+```
+
+3) Replace `:email` in your sign in form with `:login`:
+
+```haml
+= simple_form_for resource, as: resource_name, url: session_url(resource_name) do |f|
+    = f.input :login, required: true, autofocus: true
+    = f.input :password, required: true
 ```
 
 ---

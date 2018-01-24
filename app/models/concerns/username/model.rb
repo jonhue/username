@@ -4,9 +4,19 @@ module Username
         extend ActiveSupport::Concern
 
         module ClassMethods
-            def has_username
+            def has_username options = {}
+                defaults = {
+                    devise: false
+                }
+                options = defaults.merge options
+
                 Username.configuration&.models << self.name
                 validate :username_validation
+
+                if options[:devise]
+                    attr_accessor :login
+                    extend Username::Model::DeviseMethods
+                end
             end
 
             def username_valid? username
@@ -23,6 +33,17 @@ module Username
                     valid
                 else
                     true
+                end
+            end
+        end
+
+        module DeviseMethods
+            def find_for_database_authentication warden_conditions
+                conditions = warden_conditions.dup
+                if login = conditions.delete(:login)
+                    where(conditions.to_h).where(['lower(username) = :value OR lower(email) = :value', { value: login.downcase }]).first
+                elsif conditions.has_key?(:username) || conditions.has_key?(:email)
+                    where(conditions.to_h).first
                 end
             end
         end
