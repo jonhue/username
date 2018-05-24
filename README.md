@@ -55,7 +55,7 @@ You can add usernames to an ActiveRecord model:
 
 ```ruby
 class User < ApplicationRecord
-    has_username
+    include Username::Model
 end
 ```
 
@@ -81,7 +81,8 @@ If you are using Devise and you want to allow your users to sign in using either
 
 ```ruby
 class User < ApplicationRecord
-    has_username devise: true
+    include Username::Model
+    include Username::Model::Devise
 end
 ```
 

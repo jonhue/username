@@ -4,6 +4,11 @@
 
 * nothing yet
 
+### 2.0.0 - 2018/05/24
+
+* features
+    * add functionality directly by including concerns
+
 ### 1.1.0 - 2018/01/24
 
 * features
